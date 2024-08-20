@@ -52,7 +52,7 @@ class TestUrbanRoutes:
         phone_number = data.phone_number
         add_phone_number.set_phone_number(phone_number)
 
-    def test_comfirm_phone_number(cls):
+    def test_confirm_phone_number(cls):
 
         comfirmation_code = UrbanRoutesP.UrbanRoutesPage(cls.driver)
         comfirmation_code.confirm_phone_number()
@@ -90,7 +90,7 @@ class TestUrbanRoutes:
         add_tissue_and_blanket.request_blanket_and_tissues()
         #Aserción para el botón de manta y pañuelos
         blank_and_tiss = add_tissue_and_blanket.switch_blanket_and_tissues()
-        assert blank_and_tiss == True
+        assert blank_and_tiss == True, f"Expected switch to be ON"
 
 
     def test_add_ice_cream(cls):
