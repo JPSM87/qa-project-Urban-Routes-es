@@ -2,7 +2,6 @@ from selenium.common import TimeoutException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 import helpers
-import time
 from locators import UrbanRoutesLocators
 
 class UrbanRoutesPage:
@@ -95,7 +94,8 @@ class UrbanRoutesPage:
 
         self.driver.find_element(*UrbanRoutesLocators.phone_number_confirmation_code).send_keys(code)
 
-        self.driver.find_element(*UrbanRoutesLocators.phone_code_confirmation_button).click() #Corre
+        self.driver.find_element(*UrbanRoutesLocators.phone_code_confirmation_button).click()
+
 
 
     def add_credit_card(self, card_number, card_code):
