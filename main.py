@@ -5,6 +5,7 @@ from selenium.webdriver.common.by import By
 import locators
 
 
+
 class TestUrbanRoutes:
 
     driver = None
@@ -40,10 +41,9 @@ class TestUrbanRoutes:
         order_cab_click = UrbanRoutesP.UrbanRoutesPage(cls.driver)
         order_cab_click.select_comfort_tariff()
         # Aserción para verificar si se ha seleccionado la tarifa
-        selected_tariff = cls.driver.find_element(By.XPATH,'//*[@id="root"]/div/div[3]/div[3]/div[2]/div[1]/div[5]')  # Define el selector correcto
-        assert "Comfort" in selected_tariff.text, "Expected 'Comfort' tariff to be selected"
-
-
+        #Al intentar ocupar el selector como CSS y como CLASS_NAME 'tcard active', no lo me lo toma, así que recurrí a este método utilizando la presencia de la opción de mantas y pañuelos en el workflow.
+        selected_tariff = cls.driver.find_element(By.CSS_SELECTOR,'.r-sw-label')
+        assert "Manta y pañuelos" in selected_tariff.text, "Expected 'Comfort' tariff to be selected"
 
 
     def test_add_phone_number(cls):
@@ -51,16 +51,16 @@ class TestUrbanRoutes:
         add_phone_number = UrbanRoutesP.UrbanRoutesPage(cls.driver)
         phone_number = data.phone_number
         add_phone_number.set_phone_number(phone_number)
-        # Aserción para verificar el número telefónico
-        entered_phone = cls.driver.find_element(By.ID, 'phone').get_attribute('value')
-        assert entered_phone == phone_number, f"Expected phone number to be {phone_number}"
-
 
     def test_comfirm_phone_number(cls):
 
         comfirmation_code = UrbanRoutesP.UrbanRoutesPage(cls.driver)
         comfirmation_code.confirm_phone_number()
-
+        phone_number = data.phone_number
+        phone_number_locator = locators.UrbanRoutesLocators.phone_number_button
+        # Verificación final del texto dentro del elemento
+        entered_phone = cls.driver.find_element(*phone_number_locator).text
+        assert phone_number in entered_phone, f"Expected phone number to be {phone_number}, but got {entered_phone}"
 
     def test_pay_method(cls):
 
@@ -69,7 +69,8 @@ class TestUrbanRoutes:
         card_code = data.card_code
         add_credit_card.add_credit_card(card_number, card_code)
         # Aserción para verificar si se ha añadido la tarjeta
-        card_message = cls.driver.find_element(By.CSS_SELECTOR, '.pp-button').text
+        added_card = locators.UrbanRoutesLocators.pay_method_button
+        card_message = cls.driver.find_element(*added_card).text
         assert "Tarjeta" in card_message, "Expected card to be added successfully"
 
 
@@ -87,7 +88,6 @@ class TestUrbanRoutes:
 
         add_tissue_and_blanket = UrbanRoutesP.UrbanRoutesPage(cls.driver)
         add_tissue_and_blanket.request_blanket_and_tissues()
-
         #Aserción para el botón de manta y pañuelos
         blank_and_tiss = add_tissue_and_blanket.switch_blanket_and_tissues()
         assert blank_and_tiss == True
