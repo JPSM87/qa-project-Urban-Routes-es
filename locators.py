@@ -13,6 +13,8 @@ class UrbanRoutesLocators:
 
     comfort_tariff = (By.XPATH, '//*[@id="root"]/div/div[3]/div[3]/div[2]/div[1]/div[5]')  # Botón de la tarifa comfort
 
+    comfort_tariff_check = (By.CLASS_NAME,'tcard-title')
+
     phone_number_button = (By.CLASS_NAME, 'np-text')  # Botón para abrir la ventana de número de teléfono
 
     phone_number_field = (By.ID, 'phone')  # Campo de entrada del número de teléfono
@@ -23,7 +25,7 @@ class UrbanRoutesLocators:
 
     phone_code_confirmation_button = (By.CSS_SELECTOR,'.section.active>form>.buttons>:nth-child(1)')  # Botón para confirmar el código de teléfono
 
-    pay_method_button = (By.CSS_SELECTOR,'.pp-button ')  # Botón para seleccionar el método de pago
+    pay_method_button = (By.CSS_SELECTOR,'.pp-value-text ')  # Botón para seleccionar el método de pago ACTUALIZADO
 
     add_new_card = (By.XPATH, '//*[@id="root"]/div/div[2]/div[2]/div[1]/div[2]/div[3]')  # Botón para añadir una nueva tarjeta
 
